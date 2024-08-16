@@ -45,15 +45,23 @@ def make_report(portfolio, prices):
         report.append(t)
     return report
 
-header = ('Name', 'Shares', 'Price', 'Change')
-portfolio = read_portfolio('Data/portfoliodate.csv')
-prices    = read_prices('Data/prices.csv')
-report    = make_report(portfolio, prices)
 
-print(f'{header[0]:>10s} {header[1]:>10s} {header[2]:>10s} {header[3]:>10s}')
-print('-'*10, '-'*10, '-'*10, '-'*10)
-for name, shares, price, change in report:
-    print(f'{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}')
+def print_report(report):
+    header = ('Name', 'Shares', 'Price', 'Change')
+    print(f'{header[0]:>10s} {header[1]:>10s} {header[2]:>10s} {header[3]:>10s}')
+    print('-'*10, '-'*10, '-'*10, '-'*10)
+    for name, shares, price, change in report:
+        print(f'{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}')
+    
+
+def portfolio_report(portfolio_filename, prices_filename):
+    portfolio = read_portfolio(portfolio_filename)
+    prices    = read_prices(prices_filename)
+    report    = make_report(portfolio, prices)
+    print_report(report)
+
+
+portfolio_report('Data/portfolio2.csv', 'Data/prices.csv')
 
 # # Calculate the total cost of the portfolio
 # total_cost = 0.0
